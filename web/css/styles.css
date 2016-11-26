@@ -1,0 +1,24 @@
+body{
+	background: #f4f4f4;
+}
+header{
+	background: #2980b9;
+	color: #fff;
+}
+.main .container{
+	background: #fff;
+	border-right: solid;
+	border-left: solid;
+	border-width: 2px;
+	border-color: #ddd;
+	padding-bottom: 30px;
+}
+.main .publication{
+	padding: 10px;
+}
+.main .publication div{
+	border:solid;
+	border-width: 1px;
+	padding: 10px;
+	border-color: #ccc;
+}
