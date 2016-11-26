@@ -41,18 +41,34 @@ class DefaultController extends Controller
     */
     public function store(Request $request){
 
-        $post = new post();
-        $post->setTitle($request->request->get('title') );
-        $post->setContent($request->request->get('content') );
-        
-        $author = $this->getDoctrine()->getRepository('AppBundle:author')->find($request->request->get('author_id') );
-        $post->setAuthor($author );
+        $errors = $this->formValidation($request);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($post );
-        $em->flush();
+        if($errors == ''){
 
-        return $this->RedirectToRoute('index');
+            $post = new post();
+            $post->setTitle($request->request->get('title') );
+            $post->setContent($request->request->get('content') );
+            
+            $author = $this->getDoctrine()->getRepository('AppBundle:author')->find($request->request->get('author_id') );
+            $post->setAuthor($author );
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post );
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('alert-msj','Publicación Agregada');
+            $this->get('session')->getFlashBag()->add('alert-type','alert-success');
+            $this->get('session')->getFlashBag()->add('sf-title',$request->request->get('title') );
+            $this->get('session')->getFlashBag()->add('sf-content',$request->request->get('content') );
+            return $this->RedirectToRoute('index');
+
+        }else{
+
+            $this->get('session')->getFlashBag()->add('alert-msj',$errors);
+            $this->get('session')->getFlashBag()->add('alert-type','alert-danger');
+
+            return $this->RedirectToRoute('index.create');
+        }
     }
 
     /**
