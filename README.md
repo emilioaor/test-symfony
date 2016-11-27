@@ -1,4 +1,3 @@
-test
-====
+# Mi Primer Test con Symfony
 
-A Symfony project created on November 26, 2016, 2:29 am.
+Página basica para publicar una pequeña nota. Testeo sobre el mantenimiento basico de tablas con symfony.
